@@ -38,18 +38,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.testproff.R
-import com.example.testproff.ui.components.CustomButton
+import com.example.testproff.ui.components.maincomponents.CustomButton
+import com.example.testproff.ui.navigation.NavigationDestination
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+object OnBoardingDestination: NavigationDestination{
+    override val title = "приветствие"
+    override val route = "onboardscreen"
+}
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnBoardingScreen(){
+fun OnBoardingScreen(
+    navigateToHome:() -> Unit
+){
     val pageCount = 3
     val pagerState = rememberPagerState { pageCount }
     val currentPage = pagerState.currentPage
@@ -83,8 +88,10 @@ fun OnBoardingScreen(){
         )
 
         CustomButton(
-            currentPage = currentPage,
-            navigateToNextPage = navigateToNextPage,
+            onClick = if (currentPage == 2) navigateToHome else navigateToNextPage,
+            contentColor = Color.Black,
+            containerColor = Color.White,
+            title = if (currentPage == 0 ) "Начать" else "Далее",
             modifier = Modifier
                 .padding(bottom = 46.dp)
                 .align(Alignment.BottomCenter)
@@ -236,8 +243,8 @@ fun ProgressBar(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun OnBoardingScreenPreview(){
-    OnBoardingScreen()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun OnBoardingScreenPreview(){
+//    OnBoardingScreen()
+//}

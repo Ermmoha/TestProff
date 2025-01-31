@@ -1,6 +1,11 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
+
+    id("com.google.dagger.hilt.android")
+    id ("dagger.hilt.android.plugin")
+    id("kotlin-kapt")
 }
 
 android {
@@ -48,7 +53,8 @@ android {
         }
     }
 }
-
+val navVersion: String by project
+val daggerVersion: String by project
 dependencies {
 
     implementation("androidx.core:core-ktx:1.15.0")
@@ -68,4 +74,11 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    //dagger
+    implementation("com.google.dagger:hilt-android:$daggerVersion")
+    kapt ("com.google.dagger:hilt-compiler:$daggerVersion")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    //Navigation
+    implementation("androidx.navigation:navigation-compose:$navVersion")
 }

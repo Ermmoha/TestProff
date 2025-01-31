@@ -1,11 +1,14 @@
 package com.example.testproff.ui.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -16,25 +19,27 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.testproff.ui.components.maincomponents.CustomButton
+import com.example.testproff.R
 import com.example.testproff.ui.components.CustomTextField
+import com.example.testproff.ui.components.maincomponents.CustomButton
 import com.example.testproff.ui.navigation.NavigationDestination
 
-object  SignInDestination: NavigationDestination{
-    override val title = "Авторизация"
-    override val route = "signin"
+object  RegisterDestination: NavigationDestination {
+    override val title = "Ругистрация"
+    override val route = "registr"
 }
 
 @Composable
-fun SignInScreen(
-    navigateToOnBoardingScreen:() -> Unit,
-    navigateToRegScreen:() -> Unit
+fun RegisterScreen(
+    navigateToSignInScreen:() -> Unit
 ) {
-    var email by remember { mutableStateOf("")}
+    var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("")}
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
@@ -42,12 +47,12 @@ fun SignInScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .padding(20.dp, 121.dp)
+                .padding(20.dp, 100.dp)
                 .height(416.dp)
                 .width(335.dp)
         ) {
             Text(
-                text = "Привет!",
+                text = "Регистрация",
                 fontSize = 32.sp,
             )
             Text(
@@ -62,68 +67,77 @@ fun SignInScreen(
             Column(
                 modifier = Modifier
                     .padding(top = 35.dp)
-                    .height(292.dp)
+                    .height(400.dp)
                     .width(335.dp)
             ) {
+                CustomTextField(
+                    title = "Ваше имя",
+                    example = "xxxxxxxx",
+                    value = name,
+                    onValueChange = { name = it },
+                    isPassword = false
+                )
                 CustomTextField(
                     title = "Email",
                     example = "xyz@gmail.com",
                     value = email,
-                    onValueChange = {email = it},
+                    onValueChange = { email = it },
                     isPassword = false
-                    )
+                )
                 CustomTextField(
                     title = "Пароль",
                     example = "••••••••",
                     value = password,
-                    onValueChange = {password = it},
+                    onValueChange = { password = it },
                     isPassword = true
-                    )
-                TextButton(
-                    onClick = { /*TODO*/ },
-                    modifier = Modifier.align(Alignment.End)
+                )
+                Row(
+                    modifier = Modifier.height(220.dp)
                 ) {
-                    Text(
-                        text = "Восстановить",
-                        color = Color(112, 123, 129,),
-                        fontSize = 12.sp
+                    Icon(
+                        modifier = Modifier.padding(top = 8.dp),
+                        painter = painterResource(R.drawable.yes),
+                        contentDescription = null,
+                        tint = Color.Unspecified
                     )
+                    TextButton(
+                        onClick = { /*TODO*/ },
+                        modifier = Modifier.height(50.dp)
+                    ) {
+                        Text(
+                            text = "Даю согласие на обработку \nперсональных данных",
+                            color = Color(106, 106, 106),
+                            maxLines = 2,
+                            lineHeight = 16.sp,
+                            fontSize = 16.sp
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 CustomButton(
                     containerColor = Color(72, 178, 231,),
                     contentColor = Color.White,
-                    title = "Войти",
-                    onClick = navigateToOnBoardingScreen,
-                )
+                    title = "Зарегистрироваться",
+                    onClick = navigateToSignInScreen,
+                    )
             }
         }
         TextButton(
-            onClick = { navigateToRegScreen() },
+            onClick = { navigateToSignInScreen() },
             modifier = Modifier
                 .width(335.dp)
                 .padding(bottom = 50.dp)
         ) {
             Text(
-                text = "Вы впервые? ",
+                text = "Есть аккаунт? ",
                 fontSize = 16.sp,
                 color = Color(112, 123, 129,)
             )
             Text(
-                text = "Создать пользователя",
+                text = "Войти",
                 fontSize = 16.sp,
                 color = Color.Black
-                )
+            )
         }
     }
 }
-
-
-
-
-
-//@Preview(showBackground = true)
-//@Composable
-//fun SignInPreview(){
-//    SignInScreen()
-//}

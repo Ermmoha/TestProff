@@ -1,5 +1,6 @@
-package com.example.testproff.ui.components
+package com.example.testproff.ui.components.maincomponents
 
+import android.icu.text.CaseMap.Title
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -16,20 +17,13 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun CustomButton(
     modifier: Modifier = Modifier,
-    currentPage: Int,
-    navigateToNextPage: () -> Unit
+    onClick: () -> Unit,
+    containerColor: Color,
+    contentColor: Color,
+    title: String
 ){
-    val containerColor = if (currentPage == 0 || currentPage == 1 || currentPage ==2)
-        Color.White
-    else
-        Color(72, 178, 231,)
-    val contentColor = if (currentPage == 0 || currentPage == 1 || currentPage ==2)
-        Color.Black
-    else
-        Color.White
-    val title = if (currentPage == 0 ) "Начать" else if (currentPage == 1 || currentPage ==2) "Далее" else "Войти"
     Button(
-        onClick = { navigateToNextPage() },
+        onClick = { onClick() },
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,
             contentColor = contentColor
